@@ -87,6 +87,9 @@ int wmain(int argc, wchar_t* wargv[]) {
     }
   }
   argv[argc] = nullptr;
+  // CodePage 932 and similar environments cannot correctly handle file names with std::filesystem.
+  // Therefore, force .utf-8 encoding with locale to enable proper processing.
+  std::locale::global(std::locale{".utf-8"});
   // Now that conversion is done, we can finally start.
   return node::Start(argc, argv);
 }
