@@ -3147,7 +3147,7 @@ static void GetFormatOfExtensionlessFile(
 
 #ifdef _WIN32
 #define BufferValueToPath(str)                                                 \
-  std::filesystem::path(ConvertToWideString(str.ToString()))
+  std::filesystem::path(ConvertToWideString(str.ToString(), GetACP()))
 
 std::string ConvertWideToUTF8(const std::wstring& wstr) {
   if (wstr.empty()) return std::string();

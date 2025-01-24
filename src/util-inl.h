@@ -563,13 +563,17 @@ bool IsWindowsBatchFile(const char* filename) {
 }
 
 #ifdef _WIN32
-inline std::wstring ConvertToWideString(const std::string& str) {
-  auto cp = GetACP();
+inline std::wstring ConvertToWideString(const std::string& str,
+                                        UINT code_page) {
   int size_needed = MultiByteToWideChar(
-      cp, 0, &str[0], static_cast<int>(str.size()), nullptr, 0);
+      code_page, 0, &str[0], static_cast<int>(str.size()), nullptr, 0);
   std::wstring wstrTo(size_needed, 0);
-  MultiByteToWideChar(
-      cp, 0, &str[0], static_cast<int>(str.size()), &wstrTo[0], size_needed);
+  MultiByteToWideChar(code_page,
+                      0,
+                      &str[0],
+                      static_cast<int>(str.size()),
+                      &wstrTo[0],
+                      size_needed);
   return wstrTo;
 }
 #endif  // _WIN32
